@@ -3,7 +3,7 @@ import {render} from 'react-dom'
 import Logo from './components/Logo/'
 import Link from './components/Link/'
 import Sidebar from './components/Sidebar/'
-import Content from './components/Content/'
+import DuffAccount from './components/DuffAccount/'
 import {BrowserRouter, Route, Switch} from 'react-router-dom'
 
 import ElectronImg from './assets/electron.png'
@@ -19,14 +19,9 @@ export default class App extends Component {
         })
 
         return (<div>
-            <Switch>
-                <Route exact="exact" path="/" component={Sidebar}></Route>
-                <Route exact="exact" path='/content' component={Content}></Route>
-            </Switch>
             <div className="hello">
                 <h1>Hello React!</h1>
             </div>
-
         </div>)
     }
 }

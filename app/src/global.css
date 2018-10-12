@@ -21,7 +21,8 @@
 }
 :global #app {
     color: #2c3e50;
-    max-width: 800px;
+    width: 100%;
+    max-width: 1000px;
     font-family: Source Sans Pro, Helvetica, sans-serif;
     text-align: center;
 }

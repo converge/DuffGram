@@ -8,7 +8,7 @@ export default class Logo extends React.Component {
         return (
             <div>
                 <h1>logo-here</h1>
-                <Link to="content">conteudo</Link>
+                <Link to="welcome">conteudo</Link>
             </div>
         );
     }

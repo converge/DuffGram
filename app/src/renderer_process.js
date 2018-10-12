@@ -1,12 +1,19 @@
 import React from 'react'
 import {render} from 'react-dom'
 import App from './App.jsx'
+import DuffAccount from './components/DuffAccount/'
+import Sidebar from './components/Sidebar/'
+import Dashboard from './components/Dashboard'
 import './global.css'
-import { HashRouter } from 'react-router-dom'
+import {HashRouter, Switch, Route} from 'react-router-dom'
 
-render(
+render(<div>
+    <Sidebar/>
     <HashRouter>
-    <App/>
-    </HashRouter>,
-    document.getElementById('app')
-)
+        <Switch>
+            <Route exact path='/' component={DuffAccount}></Route>
+            <Route exact path='/duff_account' component={DuffAccount}></Route>
+            <Route exact path='/dashboard' component={Dashboard}></Route>
+        </Switch>
+    </HashRouter>
+</div>, document.getElementById('app'))

@@ -11,13 +11,17 @@ export default class Sidebar extends Component {
     render() {
         return (<Router>
             <div className={styles.sidebar}>
-                <Link to="/content">Content link</Link>
+                @cycling_apparel
                 <ul>
-                    <li className={styles.li} onClick={this.loadDashboard.bind(this)}>
-                        Dashboard
+                    <li>
+                        <Link to="/dashboard">Dashboard</Link>
                     </li>
-                    <li>Login</li>
-                    <li>NANOGram Account</li>
+                    <li className={styles.li} onClick={this.loadDashboard.bind(this)}>
+                        Login
+                    </li>
+                    <li>
+                        <Link to="/duff_account">DuffGram Account</Link>
+                    </li>
                 </ul>
             </div>
         </Router>);

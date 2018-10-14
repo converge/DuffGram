@@ -12,12 +12,7 @@ export default class Dashboard extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            data: [
-                {
-                    id: 21,
-                    name: 'jp'
-                }
-            ]
+            data: []
         }
     }
 
@@ -27,6 +22,9 @@ export default class Dashboard extends Component {
 
     loadProducts = async () => {
         const response = await api.get('/products')
+        this.setState({
+            data: response.data.docs
+        })
         console.log(response)
     }
 
@@ -50,16 +48,18 @@ export default class Dashboard extends Component {
 
     render() {
         let rows = this.state.data.map(person => {
-            return <PersonRow key={person.id} data={person}/>
+            return <PersonRow key={person._id} data={person}/>
         })
         return (<Fragment>
             <div className={styles.dashboard}>
-                <h1>DASHBOARD</h1>
+                <h1>DASHBOARD lenght: {this.state.data.length}</h1>
                 <table>
                     <tbody>
                         <tr>
                             <td>id</td>
-                            <td>name</td>
+                            <td>title</td>
+                            <td>url</td>
+                            <td>created at</td>
                         </tr>
                         {rows}
                     </tbody>
@@ -73,10 +73,16 @@ export default class Dashboard extends Component {
 const PersonRow = (props) => {
     return (<tr>
         <td>
-            {props.data.id}
+            {props.data._id}
         </td>
         <td>
-            {props.data.name}
+            {props.data.title}
+        </td>
+        <td>
+            {props.data.url}
+        </td>
+        <td>
+            {props.data.createdAt}
         </td>
     </tr>)
 }

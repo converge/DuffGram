@@ -1,4 +1,4 @@
-// Basic init
+ // Basic init
 const electron = require('electron')
 const {
     app,
@@ -8,6 +8,21 @@ const Store = require('./app/src/store.js')
 
 // Let electron reloads by itself when webpack watches changes in ./app/
 require('electron-reload')(__dirname)
+
+//const mongoose = require('mongoose')
+//const sqlite = require('sqlite3').verbose();
+//const db = new sqlite.Database('/Users/converge/Documents/workspace/duffgram-engine/db/duffgram.db')
+
+// mongoose.connect('mongodb://localhost:27017/nodeapi', {useNewUrlParser: true})
+
+//require('./app/src/models/IGAccount')
+
+//const IGAccount = mongoose.model('IGAccount')
+/*
+IGAccount.create({
+    username: 'joao'
+})*/
+
 
 // First instantiate the class
 const store = new Store({

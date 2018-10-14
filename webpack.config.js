@@ -5,6 +5,9 @@ module.exports = {
     watch: true,
 
     target: 'electron-renderer',
+    externals: {
+        'sqlite3': 'commonjs sqlite3',
+    },
 
     entry: './app/src/renderer_process.js',
 
@@ -15,21 +18,24 @@ module.exports = {
     },
 
     module: {
-        rules: [
-            {
+        rules: [{
                 test: /\.jsx?$/,
-                loader: 'babel-loader',
-                options: {
-                    presets: ['react']
-                }
+                exclude: /node_modules/,
+                use: [{
+                    loader: 'babel-loader',
+                    options: {
+                        presets: ['@babel/preset-env', '@babel/preset-react'],
+                        plugins: ['@babel/plugin-proposal-class-properties']
+                    }
+                }],
             },
             {
                 test: /\.css$/,
                 loader: ExtractTextPlugin.extract({
-                  loader: 'css-loader',
-                  options: {
-                    modules: true
-                  }
+                    loader: 'css-loader',
+                    options: {
+                        modules: true
+                    }
                 })
             },
             {
@@ -51,7 +57,6 @@ module.exports = {
     ],
 
     resolve: {
-      extensions: ['.js', '.json', '.jsx']
+        extensions: ['.js', '.json', '.jsx']
     }
-
 }

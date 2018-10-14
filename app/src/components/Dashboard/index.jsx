@@ -1,9 +1,34 @@
 import React, {Component, Fragment} from 'react'
 import styles from './styles.css'
 import {HashRouter as Router, Link} from 'react-router-dom'
-import {PythonShell} from 'python-shell';
+import {PythonShell} from 'python-shell'
+//const sqlite = require('sqlite3').verbose();
+//const db = new sqlite.Database('/Users/converge/Documents/workspace/duffgram-engine/db/duffgram.db')
+import api from '../../../services/api'
+
 
 export default class Dashboard extends Component {
+
+    constructor(props) {
+        super(props);
+        this.state = {
+            data: [
+                {
+                    id: 21,
+                    name: 'jp'
+                }
+            ]
+        }
+    }
+
+    componentDidMount() {
+        this.loadProducts()
+    }
+
+    loadProducts = async () => {
+        const response = await api.get('/products')
+        console.log(response)
+    }
 
     update_dashboard() {
 
@@ -24,29 +49,34 @@ export default class Dashboard extends Component {
     }
 
     render() {
+        let rows = this.state.data.map(person => {
+            return <PersonRow key={person.id} data={person}/>
+        })
         return (<Fragment>
             <div className={styles.dashboard}>
                 <h1>DASHBOARD</h1>
                 <table>
                     <tbody>
                         <tr>
-                            <td>New Followers</td>
-                            <td>Followers</td>
-                            <td>Following</td>
-                            <td>Total Posts</td>
-                            <td>Last Update</td>
+                            <td>id</td>
+                            <td>name</td>
                         </tr>
-                        <tr>
-                            <td>+20</td>
-                            <td>1000</td>
-                            <td>100</td>
-                            <td>10</td>
-                            <td>2018-10-12</td>
-                        </tr>
+                        {rows}
                     </tbody>
                 </table>
-                <button onClick={this.update_dashboard.bind(this)}>Update</button>
+                <button>test</button>
             </div>
-        </Fragment>);
+        </Fragment>)
     }
+}
+
+const PersonRow = (props) => {
+    return (<tr>
+        <td>
+            {props.data.id}
+        </td>
+        <td>
+            {props.data.name}
+        </td>
+    </tr>)
 }

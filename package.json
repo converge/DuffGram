@@ -6,7 +6,9 @@
   "scripts": {
     "bundle": "webpack --mode development",
     "serve": "electron .",
-    "start": "npm-run-all --parallel bundle serve"
+    "server": "node server.js",
+    "start": "npm-run-all --parallel bundle serve",
+    "dev": "concurrently --kill-others-on-fail \"npm run server\" \"npm start\""
   },
   "author": "João Vanzuita joaovanzuita@me.com",
   "repository": "https://bitbucket.org/joaovanzuita/duffgram",
@@ -36,6 +38,7 @@
     "aws-sdk": "^2.334.0",
     "axios": "^0.18.0",
     "babel-polyfill": "^6.26.0",
+    "concurrently": "^4.0.1",
     "express": "^4.16.4",
     "mocha": "^5.2.0",
     "mongoose": "^5.3.3",

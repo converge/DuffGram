@@ -2,8 +2,6 @@ import React, {Component, Fragment} from 'react'
 import styles from './styles.css'
 import {HashRouter as Router, Link} from 'react-router-dom'
 import {PythonShell} from 'python-shell'
-//const sqlite = require('sqlite3').verbose();
-//const db = new sqlite.Database('/Users/converge/Documents/workspace/duffgram-engine/db/duffgram.db')
 import api from '../../../services/api'
 
 
@@ -17,18 +15,22 @@ export default class Dashboard extends Component {
     }
 
     componentDidMount() {
-        this.loadProducts()
+        this.loadUsernameStatistics()
+        var myVar = setInterval(this.loadUsernameStatistics, 5000);
     }
 
-    loadProducts = async () => {
-        const response = await api.get('/products')
+    loadUsernameStatistics = async () => {
+        const response = await api.get('get_username_statistics')
         this.setState({
-            data: response.data.docs
+            data: response.data.data
         })
-        console.log(response)
     }
 
-    update_dashboard() {
+    componentWillUnmount() {
+        // @todo
+    }
+
+    updateDashboard() {
 
         let options = {
             mode: 'text',
@@ -47,42 +49,46 @@ export default class Dashboard extends Component {
     }
 
     render() {
-        let rows = this.state.data.map(person => {
-            return <PersonRow key={person._id} data={person}/>
+        let rows = this.state.data.map(statistics => {
+            return <DashboardTable key={statistics.id} data={statistics}/>
         })
         return (<Fragment>
             <div className={styles.dashboard}>
-                <h1>DASHBOARD lenght: {this.state.data.length}</h1>
+                <h1>DASHBOARD</h1>
                 <table>
                     <tbody>
                         <tr>
                             <td>id</td>
-                            <td>title</td>
-                            <td>url</td>
-                            <td>created at</td>
+                            <td>Followers</td>
+                            <td>Followings</td>
+                            <td>Total Posts</td>
+                            <td>Created</td>
                         </tr>
                         {rows}
                     </tbody>
                 </table>
-                <button>test</button>
+                <button onClick={this.updateDashboard.bind(this)}>Update</button>
             </div>
         </Fragment>)
     }
 }
 
-const PersonRow = (props) => {
+const DashboardTable = (props) => {
     return (<tr>
         <td>
-            {props.data._id}
+            {props.data.ig_account_id}
         </td>
         <td>
-            {props.data.title}
+            {props.data.followers}
         </td>
         <td>
-            {props.data.url}
+            {props.data.followings}
         </td>
         <td>
-            {props.data.createdAt}
+            {props.data.total_posts}
+        </td>
+        <td>
+            {props.data.created}
         </td>
     </tr>)
 }

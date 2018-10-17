@@ -3,7 +3,6 @@ import styles from './styles.css'
 import {HashRouter as Router, Link} from 'react-router-dom'
 import api from '../../../services/api'
 
-
 export default class Sidebar extends Component {
 
     constructor(props) {
@@ -19,9 +18,7 @@ export default class Sidebar extends Component {
 
     loadUsernames = async () => {
         const response = await api.get('get_usernames')
-        this.setState({
-            data: response.data.data
-        })
+        this.setState({data: response.data.data})
         console.log(response.data)
     }
 
@@ -56,9 +53,7 @@ export default class Sidebar extends Component {
 }
 
 const Usernames = (props) => {
-    return(
-        <option key={props.data.id} value={props.data.id}>
-            {props.data.username}
-        </option>
-    )
+    return (<option key={props.data.id} value={props.data.id}>
+        {props.data.username}
+    </option>)
 }

@@ -1,22 +1,38 @@
-import React, {Component, Fragment} from 'react'
-import styles from './styles.css'
-import {HashRouter as Router, Link, Route} from 'react-router-dom'
+import React, { Component, Fragment } from "react";
+import styles from "./styles.css";
+import { HashRouter as Router, Link, Route } from "react-router-dom";
+import Card from "@material-ui/core/Card";
+import CardContent from "@material-ui/core/CardContent";
+import Typography from "@material-ui/core/Typography";
 
 export default class DuffAccount extends Component {
-    render() {
-        return (<Fragment>
-            <Router>
-                <div className={styles.duff_account}>
-                    <h1>Duff Account</h1>
-                    <p>Prove Of Concept version 0.1</p>
-                    <p>Code version 0.1</p>
-                    <p>Author: João Vanzuita - joaovanzuita@me.com</p>
-                    <br/>
-                    <p>id: joaovanzuita@me.com</p>
-                    <p>Plan cicle: 30 days</p>
-                    <Link to="/">Home</Link>
-                </div>
-            </Router>
-        </Fragment>);
-    }
+  render() {
+    return (
+      <Fragment>
+        <div className={styles.duff_account}>
+            <Typography
+              color="textSecondary"
+              gutterBottom
+            >
+            <h1>Duff Account</h1>
+            </Typography>
+            <Card >
+              <CardContent>
+                <Typography
+                  color="textSecondary"
+                  gutterBottom
+                >
+                <p>Code version 0.0.1</p>
+                <br />
+                <p>id: joaovanzuita@me.com</p>
+                <p>Plan cicle: 30 days</p>
+                </Typography>
+              </CardContent>
+            </Card>
+
+
+        </div>
+      </Fragment>
+    );
+  }
 }

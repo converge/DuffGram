@@ -40,16 +40,20 @@ function createWindow() {
     })
 }
 
-app.on('ready', createWindow)
+app.on('ready', function () {
+    createWindow()
+    // devTools
+    BrowserWindow.addDevToolsExtension("/Users/converge/Library/Application Support/Google/Chrome/Default/Extensions/fmkadmapgofadopljbjfkapdkoienihi/3.4.1_0/")
+})
 
 app.on('window-all-closed', () => {
-    if (process.platform != 'Darwin') {
+    if (process.platform !== 'Darwin') {
         app.quit()
     }
 })
 
 app.on('active', () => {
-    if (mainWindow == null) {
+    if (mainWindow === null) {
         createWindow()
     }
 })

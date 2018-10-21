@@ -12,8 +12,12 @@ class SelectIgAccount extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            data: []
+	    data: [],
+	    active_ig_account: [] 
         }
+	this.handleClose = this.handleClose.bind(this)
+	this.loadUsernames = this.loadUsernames.bind(this)
+	this.loadFirstUsername = this.loadFirstUsername.bind(this)
     }
 
     state = {
@@ -22,36 +26,50 @@ class SelectIgAccount extends React.Component {
 
     componentDidMount() {
         this.loadUsernames()
+	this.loadFirstUsername()
+    }
+
+    componentWillUnmount() {
+        this.loadUsernames()
+	this.loadFirstUsername()
     }
 
     loadUsernames = async () => {
         const response = await api.get("get_usernames")
-        this.setState({data: response.data.data})
+        this.setState({ data: response.data.data })
+    }
+
+    loadFirstUsername = async () => {
+	const response = await api.get("get_first_username")
+	let ig_user = response.data.data.map(user => {
+	    return `@${user.username}`
+	})
+	this.setState({ active_ig_account: ig_user })
     }
 
     handleClick = event => {
         this.setState({anchorEl: event.currentTarget});
     };
 
-    handleClose = () => {
+    handleClose = (event, selected_ig_account) => {
+	this.setState({
+	    active_ig_account: `@${selected_ig_account}`
+	})
         this.setState({anchorEl: null});
     };
 
     render() {
         const {anchorEl} = this.state;
         let menuItemIg = this.state.data.map(ig_accounts => {
-            return <IgAccountItems key={ig_accounts.id} data={ig_accounts} onClick={this.handleClose}/>
+	    return <IgAccountItems key={ig_accounts.id} data={ig_accounts} onClick={event => this.handleClose(event, ig_accounts.username)}/>
         })
         return (<div>
             <Button aria-owns={anchorEl
                     ? 'simple-menu'
                     : null} aria-haspopup="true" onClick={this.handleClick}>
-                @cycling_apparel
+		    {this.state.active_ig_account}
             </Button>
             <Menu id="simple-menu" anchorEl={anchorEl} open={Boolean(anchorEl)} onClose={this.handleClose}>
-                <MenuItem onClick={this.handleClose}>Profile</MenuItem>
-                <MenuItem onClick={this.handleClose}>My account</MenuItem>
-                <MenuItem onClick={this.handleClose}>Logout</MenuItem>
                 {menuItemIg}
             </Menu>
         </div>);

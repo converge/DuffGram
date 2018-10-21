@@ -10,14 +10,31 @@ app.use(bodyParser.json());
 
 app.get('/get_username_statistics', function(req, res) {
     db.all("SELECT id, ig_account_id, followers, followings, total_posts, created FROM ig_account_statistics", function(err, rows) {
-        res.json({data: rows})
+        return res.json({ data: rows })
     });
 });
 
 app.get('/get_usernames', function(req, res) {
     db.all('SELECT id, username, created FROM ig_account', function(err, rows) {
-        res.json({data: rows})
+        return res.json({ data: rows })
     })
+})
+
+app.get('/get_first_username', function(req, res) {
+    db.get('SELECT id, username FROM ig_account ORDER BY id', function(err, row) {
+	return res.json({ data: row })
+    })
+})
+
+app.post('/create_ig_account', function(req, res) {
+    try {
+        const stmt = db.prepare('INSERT INTO ig_account (username, password) VALUES (?, ?)')
+	stmt.run(req.body.username, req.body.password)
+	stmt.finalize()
+	return res.status(200).send('ok')
+    } catch (err) {
+	return res.status(500).send('Something went wrong')
+    }
 })
 
 app.listen(port);

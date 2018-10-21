@@ -77,9 +77,6 @@ class PermanentDrawer extends React.Component {
         labelWidth: 20
     };
 
-    // handleChange = event => {
-    //     this.setState({anchor: event.target.value});
-    // };
     handleChange = event => {
         this.setState({auth: event.target.checked});
     };

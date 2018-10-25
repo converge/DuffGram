@@ -13,7 +13,7 @@ class SelectIgAccount extends React.Component {
         super(props)
         this.state = {
 	    data: [],
-	    active_ig_account: [] 
+	    active_ig_account: 'Select IG Account' 
         }
 	this.handleClose = this.handleClose.bind(this)
 	this.loadUsernames = this.loadUsernames.bind(this)
@@ -26,22 +26,24 @@ class SelectIgAccount extends React.Component {
 
     componentDidMount() {
         this.loadUsernames()
-	this.loadFirstUsername()
+	// this.loadFirstUsername()
     }
 
     componentWillUnmount() {
         this.loadUsernames()
-	this.loadFirstUsername()
+	// this.loadFirstUsername()
     }
 
     loadUsernames = async () => {
-        const response = await api.get("get_usernames")
+        const response = await api.get("/get_usernames")
         this.setState({ data: response.data.data })
     }
 
     loadFirstUsername = async () => {
-	const response = await api.get("get_first_username")
+	const response = await api.get("/get_first_username")
+	console.log(response)
 	let ig_user = response.data.data.map(user => {
+	console.log(ig_user)
 	    return `@${user.username}`
 	})
 	this.setState({ active_ig_account: ig_user })
@@ -61,13 +63,13 @@ class SelectIgAccount extends React.Component {
     render() {
         const {anchorEl} = this.state;
         let menuItemIg = this.state.data.map(ig_accounts => {
-	    return <IgAccountItems key={ig_accounts.id} data={ig_accounts} onClick={event => this.handleClose(event, ig_accounts.username)}/>
+	    return <IgAccountItems key={ig_accounts.id} data={ig_accounts} onClick={event => this.handleClose(event, ig_accounts.username)} />
         })
         return (<div>
             <Button aria-owns={anchorEl
                     ? 'simple-menu'
                     : null} aria-haspopup="true" onClick={this.handleClick}>
-		    {this.state.active_ig_account}
+			{this.state.active_ig_account}
             </Button>
             <Menu id="simple-menu" anchorEl={anchorEl} open={Boolean(anchorEl)} onClose={this.handleClose}>
                 {menuItemIg}

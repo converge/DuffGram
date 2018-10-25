@@ -82,7 +82,7 @@ class PermanentDrawer extends React.Component {
     };
 
     handleMenu = event => {
-        this.setState({anchorEl: event.currentTarget});
+        // this.setState({anchorEl: event.currentTarget});
     };
 
     handleClose = () => {
@@ -136,7 +136,6 @@ class PermanentDrawer extends React.Component {
                                         horizontal: "right"
                                     }} open={open} onClose={this.handleClose}>
                                     <MenuItem onClick={this.handleClose}>Profile</MenuItem>
-                                    <MenuItem onClick={this.handleClose}>My account</MenuItem>
                                 </Menu>
                             </div>)
                         }

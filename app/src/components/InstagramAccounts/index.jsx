@@ -31,7 +31,6 @@ class AddIgAccount extends React.Component {
 	} else {
 	    action_button = <Button onClick={() => this.props.triggerUpdateIgPassword(this.props.currentId)} color="primary">Upgdate Password</Button>
 	}
-console.log(this.props)
 	return (
 	    <div>
 		<Button onClick={this.props.triggerOpen}>Add Instagram Account</Button>
@@ -180,8 +179,6 @@ export default class InstagramAccounts extends React.Component {
     }
 
     updateIgPassword = async (account_id) => {
-	console.log(account_id)
-console.log(this.state.password)
 	const response = await api.post('/update_ig_account', {
 	    account_id: account_id,
 	    password: this.state.password

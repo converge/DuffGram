@@ -146,11 +146,11 @@ class PermanentDrawer extends React.Component {
                     <div className={classes.toolbar}/>
                     <HashRouter>
                         <Switch>
-                            <Route exact="exact" path="/" component={DuffAccount}/>
-                            <Route exact="exact" path="/duff_account" component={DuffAccount}/>
-                            <Route exact="exact" path="/dashboard" component={Dashboard}/>
-                            <Route exact="exact" path="/instagram_accounts" component={InstagramAccounts}/>
-                            <Route exact="exact" path="/about" component={About}/>
+                            <Route exact={true} path="/" component={DuffAccount}/>
+                            <Route exact={true} path="/duff_account" component={DuffAccount}/>
+                            <Route exact={true} path="/dashboard" component={Dashboard}/>
+                            <Route exact={true} path="/instagram_accounts" component={InstagramAccounts}/>
+                            <Route exact={true} path="/about" component={About}/>
                         </Switch>
                     </HashRouter>
                 </main>

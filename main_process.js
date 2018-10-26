@@ -4,22 +4,9 @@ const {
     app,
     BrowserWindow
 } = electron
-const Store = require('./app/src/store.js')
 
 // Let electron reloads by itself when webpack watches changes in ./app/
 require('electron-reload')(__dirname)
-
-// First instantiate the class
-const store = new Store({
-    // We'll call our data file 'user-preferences'
-    configName: 'user-preferences',
-    defaults: {
-        // 800x600 is the default size of our window
-        default_ig_account: {
-            ig_account: 'cycling_apparel'
-        }
-    }
-});
 
 // To avoid being garbage collected
 let mainWindow
@@ -29,10 +16,6 @@ function createWindow() {
         width: 1000,
         height: 600
     })
-    let {
-        ig_account
-    } = store.get('default_ig_account');
-    console.log(ig_account);
     mainWindow.loadURL(`file://${__dirname}/app/index.html`)
 
     mainWindow.on('closed', () => {
@@ -43,7 +26,7 @@ function createWindow() {
 app.on('ready', function () {
     createWindow()
     // devTools
-    BrowserWindow.addDevToolsExtension("/Users/converge/Library/Application Support/Google/Chrome/Default/Extensions/fmkadmapgofadopljbjfkapdkoienihi/3.4.1_0/")
+    // BrowserWindow.addDevToolsExtension("/Users/converge/Library/Application Support/Google/Chrome/Default/Extensions/fmkadmapgofadopljbjfkapdkoienihi/3.4.1_0/")
 })
 
 app.on('window-all-closed', () => {

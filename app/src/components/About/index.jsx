@@ -7,14 +7,13 @@ export default class About extends React.Component {
     render() {
         return (
             <div className="">
-            <Typography color="textSecondary" gutterBottom="gutterBottom">
-                <h1>About</h1>
-            </Typography>
+	    <h1>About</h1>
             <Card >
                 <CardContent>
-                    <Typography color="textSecondary" gutterBottom="gutterBottom">
-                        <p>Author: João Vanzuita</p>
-                        <p>email: joaovanzuita@me.com</p>
+                    <Typography color="textSecondary" gutterBottom={true}>
+			Author: João Vanzuita<br/>
+
+			<br/>email: joaovanzuita@me.com
                     </Typography>
                 </CardContent>
             </Card>

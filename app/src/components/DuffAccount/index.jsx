@@ -10,16 +10,14 @@ export default class DuffAccount extends Component {
         return (
             <Fragment>
             <div className={styles.duff_account}>
-                <Typography color="textSecondary" gutterBottom="gutterBottom">
-                    <h1>Duff Account</h1>
-                </Typography>
+		<h1>Duff Account</h1>
                 <Card >
                     <CardContent>
-                        <Typography color="textSecondary" gutterBottom="gutterBottom">
-                            <p>Version 0.0.1</p>
+                        <Typography color="textSecondary" gutterBottom={true}>
+			    Version 0.0.1
                             <br/>
-                            <p>id: joaovanzuita@me.com</p>
-                            <p>Plan cicle: 30 days</p>
+			    <br/>id: joaovanzuita@me.com
+			    <br/>Plan cicle: 30 days
                         </Typography>
                     </CardContent>
                 </Card>

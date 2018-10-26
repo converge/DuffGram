@@ -58,6 +58,7 @@ class SelectIgAccount extends React.Component {
 	    active_ig_account: `@${selected_ig_account}`
 	})
         this.setState({anchorEl: null});
+	console.log(this.state.active_ig_account)
     };
 
     render() {
@@ -82,10 +83,6 @@ const IgAccountItems = props => {
     return (
         <MenuItem key={props.data.id} onClick={props.onClick}>{props.data.username}</MenuItem>
     )
-}
-
-SelectIgAccount.propTypes = {
-    classes: PropTypes.object.isRequired
 }
 
 export default SelectIgAccount;

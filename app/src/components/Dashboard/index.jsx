@@ -15,92 +15,106 @@ import TableRow from '@material-ui/core/TableRow';
 
 
 export default class Dashboard extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      data: []
-    };
-  }
+    constructor(props) {
+	super(props);
+	this.state = {
+	    data: [],
+	    loading: false
+	};
+	this.loadUsernameStatistics = this.loadUsernameStatistics.bind(this)
+    }
 
-  componentDidMount() {
-    this.loadUsernameStatistics();
-    var myVar = setInterval(this.loadUsernameStatistics, 5000);
-  }
+    componentDidMount() {
+	this.loadUsernameStatistics();
+	var myVar = setInterval(this.loadUsernameStatistics, 5000);
+    }
 
-  loadUsernameStatistics = async () => {
-    const response = await api.get("get_username_statistics");
-    this.setState({
-      data: response.data.data
-    });
-  };
-
-  componentWillUnmount() {
-    // @todo
-  }
-
-  updateDashboard() {
-    let options = {
-      mode: "text",
-      pythonPath: "/usr/local/bin/python3",
-      pythonOptions: ["-u"], // get print results in real-time
-      scriptPath: "/Users/converge/Documents/workspace/duffgram-engine"
+    loadUsernameStatistics = async () => {
+	const response = await api.get("get_username_statistics");
+	this.setState({
+	    data: response.data.data
+	});
     };
 
-    PythonShell.run("update_statistics.py", options, function(err, results) {
-      if (err) throw err;
+    componentWillUnmount() {
+	this.loadUsernameStatistics();
+    }
 
-      // results is an array consisting of messages collected during execution
-      console.log("results: %j", results);
-    });
-  }
+    updateDashboard2() {
+	const test_selenium = require('/Users/converge/Documents/workspace/instagram-bot-engine/test-selenium.js')
 
-  render() {
-    let rows = this.state.data.map(statistics => {
-      return <DashboardTable key={statistics.id} data={statistics} />;
-    });
+    }
 
-    return (
-      <Fragment>
-        <div className={styles.dashboard}>
-          <h1>DASHBOARD</h1>
-          <Paper>
-               <Table>
-                   <TableHead>
-                       <TableRow>
-                         <TableCell>id</TableCell>
-                         <TableCell>Followers</TableCell>
-                         <TableCell>Followings</TableCell>
-                         <TableCell>Total Posts</TableCell>
-                         <TableCell>Created</TableCell>
-                 </TableRow>
-                   </TableHead>
-                   <TableBody>
-                        {rows}
-                   </TableBody>
-               </Table>
-          </Paper>
-          <br/><br/>
-          <Button
-            onClick={this.updateDashboard.bind(this)}
-            variant="contained"
-            color="primary"
-          >
-            Update
-          </Button>
-        </div>
-      </Fragment>
-    );
-  }
+    updateDashboard() {
+	let options = {
+	    mode: "text",
+	    pythonPath: "/usr/local/bin/python3",
+	    pythonOptions: ["-u"], // get print results in real-time
+	    scriptPath: "/Users/converge/Documents/workspace/duffgram-engine"
+	};
+
+	PythonShell.run("update_statistics.py", options, function(err, results) {
+	    console.log('durante')
+	    if (err) throw err;
+
+	    // results is an array consisting of messages collected during execution
+	    console.log("results: %j", results);
+	});
+    }
+
+    render() {
+	let rows = this.state.data.map(statistics => {
+	    return <DashboardTable key={statistics.id} data={statistics} />;
+	});
+	let showUp
+	console.log(this.state.loading)
+	if (this.state.loading) {
+	    showUp = '<h1>owowo</h1>'
+	}
+	return (
+	    <Fragment>
+		<div className={styles.dashboard}>
+		    <h1>{this.state.loading}</h1>
+		    <h1>{showUp}</h1>
+		    <h1>DASHBOARD</h1>
+		    <Paper>
+			<Table>
+			    <TableHead>
+				<TableRow>
+				    <TableCell>id</TableCell>
+				    <TableCell>Followers</TableCell>
+				    <TableCell>Followings</TableCell>
+				    <TableCell>Total Posts</TableCell>
+				    <TableCell>Created</TableCell>
+				</TableRow>
+			    </TableHead>
+			    <TableBody>
+				{rows}
+			    </TableBody>
+			</Table>
+		    </Paper>
+		    <br/><br/>
+		    <Button
+			onClick={this.updateDashboard2}
+			variant="contained"
+			color="primary"
+		    >
+			Update
+		    </Button>
+		</div>
+	    </Fragment>
+	);
+    }
 }
 
 const DashboardTable = props => {
-  return (
-      <TableRow>
-          <TableCell>{props.data.ig_account_id}</TableCell>
-              <TableCell>{props.data.followers}</TableCell>
-              <TableCell>{props.data.followings}</TableCell>
-              <TableCell>{props.data.total_posts}</TableCell>
-              <TableCell>{props.data.created}</TableCell>
-      </TableRow>
-  );
+    return (
+	<TableRow>
+	    <TableCell>{props.data.ig_account_id}</TableCell>
+	    <TableCell>{props.data.followers}</TableCell>
+	    <TableCell>{props.data.followings}</TableCell>
+	    <TableCell>{props.data.total_posts}</TableCell>
+	    <TableCell>{props.data.created}</TableCell>
+	</TableRow>
+    );
 };

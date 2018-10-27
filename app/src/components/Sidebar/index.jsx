@@ -19,7 +19,6 @@ export default class Sidebar extends Component {
     loadUsernames = async () => {
         const response = await api.get('get_usernames')
         this.setState({data: response.data.data})
-        console.log(response.data)
     }
 
     render() {

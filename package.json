@@ -1,14 +1,22 @@
 {
   "name": "DuffGram",
-  "version": "0.0.1",
-  "description": "DuffGram.",
+  "version": "0.1.0",
+  "description": "DuffGram Instagram Dashboard",
   "main": "main_process.js",
   "scripts": {
     "bundle": "webpack --mode development",
     "serve": "electron .",
     "server": "node server.js",
     "start": "npm-run-all --parallel bundle serve",
-    "dev": "concurrently --kill-others-on-fail \"npm run server\" \"npm start\""
+    "dev": "concurrently --kill-others-on-fail \"npm run server\" \"npm start\"",
+    "pack": "electron-builder --dir",
+    "dist": "electron-builder"
+  },
+  "build": {
+    "appId": "com.duffgram.electron",
+    "directories": {
+      "buildResources": "assets"
+    }
   },
   "author": "João Vanzuita joaovanzuita@me.com",
   "repository": "https://bitbucket.org/joaovanzuita/duffgram",
@@ -23,32 +31,33 @@
     "babel-plugin-transform-class-properties": "^6.24.1",
     "css-loader": "^1.0.0",
     "electron": "^3.0.6",
+    "electron-builder": "^20.29.0",
     "electron-rebuild": "^1.8.2",
     "electron-reload": "^1.2.2",
-    "eslint": "^5.7.0",
+    "eslint": "^5.8.0",
     "eslint-plugin-react": "^7.11.1",
     "extract-text-webpack-plugin": "^4.0.0-beta.0",
     "file-loader": "^1.1.10",
     "npm-run-all": "^4.1.2",
     "python-shell": "^1.0.6",
-    "webpack": "^4.23.0",
+    "webpack": "^4.23.1",
     "webpack-cli": "^3.0.11"
   },
   "dependencies": {
     "@babel/plugin-proposal-class-properties": "^7.1.0",
     "@babel/preset-react": "^7.0.0",
-    "@material-ui/core": "^3.3.1",
+    "@material-ui/core": "^3.3.2",
     "@material-ui/icons": "^3.0.1",
     "ajv": "^6.5.4",
-    "aws-sdk": "^2.342.0",
+    "aws-sdk": "^2.344.0",
     "axios": "^0.18.0",
     "babel-polyfill": "^6.26.0",
-    "bcrypt": "^3.0.2",
+    "better-sqlite3": "^5.0.1",
     "concurrently": "^4.0.1",
     "dateformat": "^3.0.3",
     "express": "^4.16.4",
+    "fix-path": "^2.1.0",
     "mocha": "^5.2.0",
-    "mongoose": "^5.3.6",
     "node-gyp": "^3.8.0",
     "node-pre-gyp": "^0.11.0",
     "prop-types": "^15.6.2",
@@ -56,10 +65,6 @@
     "react-dom": "^16.6.0",
     "react-redux": "^5.1.0",
     "react-router-dom": "^4.3.1",
-    "redux": "^4.0.1",
-    "selenium": "^2.20.0",
-    "selenium-webdriver": "^4.0.0-alpha.1",
-    "sqlite3": "^4.0.3",
-    "yargs": "^12.0.2"
+    "redux": "^4.0.1"
   }
 }

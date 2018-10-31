@@ -3,7 +3,8 @@ import styles from "./styles.css";
 import { HashRouter as Router, Link } from "react-router-dom";
 import { PythonShell } from "python-shell";
 import api from "../../../services/api";
-import { loadProfileScraper } from "/Users/converge/Documents/workspace/DuffGram/app/services/instagram-engine.js";
+import apiGrows from "../../../services/api-grows";
+//import { loadProfileScraper } from "/Users/converge/Documents/workspace/DuffGram/app/services/instagram-engine.js";
 import { connect } from "react-redux";
 
 import Button from "@material-ui/core/Button";
@@ -22,13 +23,14 @@ class Dashboard extends Component {
       data: [],
       loading: false
     };
+    const intervalId = Number()
     this.loadUsernameStatistics = this.loadUsernameStatistics.bind(this);
     this.updateDashboard = this.updateDashboard.bind(this);
   }
 
   componentDidMount() {
     this.loadUsernameStatistics();
-    // var myVar = setInterval(this.loadUsernameStatistics, 5000);
+    this.invervalId = setInterval(this.loadUsernameStatistics, 3000);
   }
 
   loadUsernameStatistics = async () => {
@@ -43,7 +45,7 @@ class Dashboard extends Component {
   };
 
   componentWillUnmount() {
-    // this.loadUsernameStatistics();
+    clearInterval(this.intervalId)
   }
 
   updateDashboard = async () => {
@@ -55,13 +57,19 @@ class Dashboard extends Component {
     });
     const username = response.data.data.username;
     const password = response.data.data.password;
-    let scraped_data = await loadProfileScraper(username, password);
+    // let scraped_data = await loadProfileScraper(username, password);
+    const scraped_data = await apiGrows.get("/get_account_status", {
+      params: {
+        account_name: 'cycling_apparel'
+      }
+    })
+    console.log(scraped_data)
     // insert new statistics to db
     await api.post("/add_username_statistics", {
       ig_account_id: this.props.ig_account_id,
-      followers: scraped_data.followers,
-      followings: scraped_data.followers,
-      total_posts: scraped_data.total_posts
+      followers: scraped_data.data.followers,
+      followings: scraped_data.data.followings,
+      total_posts: scraped_data.data.total_posts
     });
     this.loadUsernameStatistics();
   };

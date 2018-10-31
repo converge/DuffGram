@@ -31,7 +31,9 @@ class SelectIgAccount extends React.Component {
 
   loadUsernames = async () => {
     const response = await api.get("/get_usernames");
-    this.setState({ data: response.data.data });
+    this.setState({
+      data: response.data.data
+    });
   };
 
   // @todo: not ready yet

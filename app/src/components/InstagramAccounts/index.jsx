@@ -142,9 +142,11 @@ export default class InstagramAccounts extends React.Component {
     this.loadUsername(account_id);
   };
 
-  loadUsername = async account_id => {
-    const response = await api.post("/get_username", {
-      account_id: account_id
+  loadUsername = async (account_id) => {
+    const response = await api.get("/get_username", {
+      params: {
+          account_id: account_id
+      }
     });
     this.setState({
       current_id: response.data.data.id,

@@ -56,8 +56,6 @@ class SelectIgAccount extends React.Component {
 
     render() {
         const {classes} = this.props;
-        console.log('wweoes')
-        console.log(this.state.data)
         let menuItemIg = this.state.data.map(ig_accounts => {
             return <IgAccountsTable key={ig_accounts.id} data={ig_accounts}/>
         })

@@ -1,12 +1,16 @@
- // Basic init
 const electron = require('electron')
 const {
     app,
     BrowserWindow
 } = electron
 
+const server = require('./server.js')
+const userData = app.getPath('userData',)
+console.log('user dir: ', userData)
+server.start_server(userData)
+
 // Let electron reloads by itself when webpack watches changes in ./app/
-require('electron-reload')(__dirname)
+// require('electron-reload')(__dirname)
 
 // To avoid being garbage collected
 let mainWindow
@@ -17,6 +21,7 @@ function createWindow() {
         height: 600
     })
     mainWindow.loadURL(`file://${__dirname}/app/index.html`)
+    // mainWindow.webContents.openDevTools();
 
     mainWindow.on('closed', () => {
         win = null
@@ -25,8 +30,6 @@ function createWindow() {
 
 app.on('ready', function () {
     createWindow()
-    // devTools
-    // BrowserWindow.addDevToolsExtension("/Users/converge/Library/Application Support/Google/Chrome/Default/Extensions/fmkadmapgofadopljbjfkapdkoienihi/3.4.1_0/")
 })
 
 app.on('window-all-closed', () => {

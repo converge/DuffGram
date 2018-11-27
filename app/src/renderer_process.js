@@ -12,6 +12,7 @@ const initialState = {
   active_ig_account: ""
 };
 
+// Redux
 function reducer(state = initialState, action) {
   switch (action.type) {
     case "SET_ACTIVE_IG_ACCOUNT":

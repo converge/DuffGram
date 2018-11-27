@@ -25,6 +25,7 @@ class SelectIgAccount extends React.Component {
 
   componentDidMount() {
     this.loadUsernames();
+    this.loadFirstUsername()
   }
 
   componentWillUnmount() {}
@@ -36,15 +37,11 @@ class SelectIgAccount extends React.Component {
     });
   };
 
-  // @todo: not ready yet
   loadFirstUsername = async () => {
+
     const response = await api.get("/get_first_username");
-    console.log("working");
-    let ig_user = response.data.data.map(user => {
-      console.log(ig_user);
-      return `@${user.username}`;
-    });
-    this.setState({ active_ig_account: ig_user });
+    // socket.io here ->
+    this.setState({ active_ig_account: response.data.data.username });
   };
 
   handleClick = event => {

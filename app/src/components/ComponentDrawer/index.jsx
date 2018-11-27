@@ -119,7 +119,7 @@ class PermanentDrawer extends React.Component {
                 <AppBar position="absolute" className={classNames(classes.appBar, classes[`appBar-${anchor}`])}>
                     <Toolbar className={classes.toolbar}>
                         <Typography variant="h6" color="inherit" className={classes.grow}>
-                            DuffGram v0.0.1
+                            DuffGram v0.1.0
                         </Typography>
                         {
                             auth && (<div>

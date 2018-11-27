@@ -75,14 +75,17 @@ function start_server(userData)  {
     }
   });
 
-  // not needed yet -> change it to better-sqlite3
   app.get("/get_first_username", function(req, res) {
-    db.get("SELECT id, username FROM ig_account ORDER BY id", function(err, row) {
-      return res.json({
+    try {
+      const stmt = db.prepare("SELECT id, username FROM ig_account ORDER BY id")
+      const row = stmt.get()
+      return res.status(200).json({
         data: row
-      });
-    });
-  });
+      })
+    } catch (err) {
+      return res.status(500).send('Something went wrong')
+    }
+  })
 
   app.post("/create_ig_account", function(req, res) {
     // not hashing passwords for now, need to find an alternative to load encrypt password to login into Instagram
